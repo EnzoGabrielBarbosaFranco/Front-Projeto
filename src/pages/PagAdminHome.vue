@@ -1,20 +1,21 @@
 <template>
 	<div class="container">
-		<h1 class="titulo">Administração:</h1>
-		<div class="q-gutter-md q-justify-center">
+		<h1 class="titulo">Administração</h1>
+		<div class="q-justify-center">
 			<router-link to="admin/CadastroProduto" class="nav-link active">
-				<q-btn color="primary" label="+ Produto"></q-btn>
+				<q-btn color="primary" label="Cadastro de Produtos"></q-btn>
 			</router-link>
 			<router-link to="admin/CadastroUser" class="nav-link active">
-				<q-btn color="primary" label="+ Admin"></q-btn>
+				<q-btn color="primary" label="Cadastro de Admins"></q-btn>
 			</router-link>
 		</div>
 		<q-page-container>
-			<q-list bordered>
-				<h5>Produtos Ativos:</h5>
+			<q-list>
+				<h5 class="produtos-ativos-inativos">Produtos Ativos:</h5>
 				<div class="q-gutter-md q-mb-md" v-for="produto in produtos" :key="produto.id">
 					<div class="q-pa-md q-row">
-						<p class="text q-col">Produto: {{ produto.nome }}</p>
+						<p class="text q-col"><strong>Produto:</strong> <span class="bold-text">{{ produto.nome }}</span>
+						</p>
 						<p class="text q-col">Cor: {{ produto.cor }}</p>
 						<p class="text q-col">Tamanho: {{ produto.tamanho }}</p>
 						<p class="text q-col">Valor: {{ produto.valor }}</p>
@@ -27,11 +28,12 @@
 			</q-list>
 			<br />
 			<div v-if="produtosInativos.length > 0">
-				<q-list bordered>
-					<h5>Produtos Inativos:</h5>
+				<q-list>
+					<h5 class="produtos-ativos-inativos">Produtos Inativos:</h5>
 					<div class="q-gutter-md q-mb-md" v-for="produto in produtosInativos" :key="produto.id">
 						<div class="q-pa-md q-row">
-							<p class="text q-col">Produto: {{ produto.nome }}</p>
+							<p class="text q-col"><strong>Produto:</strong> <span class="bold-text">{{ produto.nome
+							}}</span></p>
 							<p class="text q-col">Cor: {{ produto.cor }}</p>
 							<p class="text q-col">Tamanho: {{ produto.tamanho }}</p>
 							<p class="text q-col">Valor: {{ produto.valor }}</p>
@@ -43,11 +45,11 @@
 				</q-list>
 			</div>
 			<br />
-			<q-list bordered>
-				<h5>Admins Ativos:</h5>
+			<q-list>
+				<h5 class="admins-ativos-inativos">Admins Ativos:</h5>
 				<div class="q-gutter-md q-mb-md" v-for="admin in admins" :key="admin.id">
 					<div class="q-pa-md q-row">
-						<p class="text q-col">Nome: {{ admin.nome }}</p>
+						<p class="text q-col"><strong>Nome:</strong> <span class="bold-text">{{ admin.nome }}</span></p>
 						<p class="text q-col">Login: {{ admin.login }}</p>
 						<p class="text q-col">Senha: {{ admin.senha }}</p>
 						<div class="q-gutter-md q-justify-end">
@@ -59,11 +61,11 @@
 			</q-list>
 			<br />
 			<div v-if="adminsInativos.length > 0">
-				<q-list bordered>
-					<h5>Admins Inativos:</h5>
+				<q-list>
+					<h5 class="admins-ativos-inativos">Admins Inativos:</h5>
 					<div class="q-gutter-md q-mb-md" v-for="admin in adminsInativos" :key="admin.id">
 						<div class="q-pa-md q-row">
-							<p class="text q-col">Nome: {{ admin.nome }}</p>
+							<p class="text q-col"><strong>Nome:</strong> <span class="bold-text">{{ admin.nome }}</span></p>
 							<p class="text q-col">Login: {{ admin.login }}</p>
 							<p class="text q-col">Senha: {{ admin.senha }}</p>
 							<div class="q-gutter-md q-justify-end">
@@ -209,6 +211,11 @@ export default defineComponent({
 	padding: 20px;
 }
 
+.admins-ativos-inativos {
+	font-weight: bold;
+	font-size: 25px;
+}
+
 .titulo {
 	font-size: 24px;
 	font-weight: bold;
@@ -222,6 +229,23 @@ export default defineComponent({
 
 .text {
 	font-size: 16px;
+}
+
+.bold-text {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.produtos-ativos-inativos {
+	font-weight: bold;
+	font-size: 25px;
+
+}
+
+.titulo {
+	text-align: center;
+	font-size: 35px;
+	font-weight: bold;
 }
 
 .q-row {
@@ -253,5 +277,16 @@ export default defineComponent({
 
 h5 {
 	padding-left: 15px;
+}
+
+.q-mb-md {
+	border: 2px solid #868686;
+	margin-bottom: 25px;
+}
+
+.q-justify-center {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;
 }
 </style>

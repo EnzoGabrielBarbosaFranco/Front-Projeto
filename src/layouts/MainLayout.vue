@@ -1,65 +1,72 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar class="bg-primary glossy text-white">
-        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
-        <br />
-        <q-avatar>
-          <img src="../assets/qr-code.png">
-        </q-avatar>
-        <q-toolbar-title>
-          SGQ
-        </q-toolbar-title>
-      </q-toolbar>
-    </q-header>
+	<q-layout view="lHh Lpr lFf-reverse">
+		<q-header elevated>
+			<q-toolbar class="bg-primary glossy text-white">
+				<q-avatar>
+					<img src="../assets/qr-code.png" />
+				</q-avatar>
+				<q-toolbar-title> SGQ </q-toolbar-title>
+				<q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleRightDrawer" />
+			</q-toolbar>
+		</q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-bellow bordered>
-      <br />
-      <q-item-label header>
-        Links Essenciais
-      </q-item-label>
-      <q-list>
-        <div class="btnLink">
-          <q-btn flat color="primary" label="Catálogo" @click="navigateToCatalogo" />
-        </div>
-        <div class="btnLink">
-          <q-btn flat color="primary" label="Admin" @click="navigateToAdmin" />
-        </div>
-      </q-list>
-    </q-drawer>
+		<q-drawer v-model="rightDrawerOpen" side="right" show-if-below right>
+			<br />
+			<q-item-label header> Links Essenciais </q-item-label>
+			<br />
+			<q-list>
+				<div class="btnLink">
+					<q-btn flat color="primary" label="Catálogo" @click="navigateToCatalogo" />
+				</div>
+				<div class="btnLink">
+					<q-btn flat color="primary" label="Admin" @click="navigateToAdmin" />
+				</div>
+			</q-list>
+		</q-drawer>
 
-    <q-page-container>
-      <router-view />
-    </q-page-container>
-  </q-layout>
+		<q-page-container>
+			<router-view />
+		</q-page-container>
+	</q-layout>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { defineComponent, ref } from "vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
-  name: 'MainLayout',
+	name: "MainLayout",
 
-  setup() {
-    const leftDrawerOpen = ref(false)
-    const router = useRouter()
+	setup() {
+		const rightDrawerOpen = ref(false);
+		const router = useRouter();
 
-    const navigateToAdmin = () => {
-      router.push('/admin')
-    }
-    const navigateToCatalogo = () => {
-      router.push('/')
-    }
+		const navigateToAdmin = () => {
+			router.push("/admin");
+		};
+		const navigateToCatalogo = () => {
+			router.push("/");
+		};
 
-    return {
-      leftDrawerOpen,
-      navigateToAdmin,
-      navigateToCatalogo,
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
-    }
-  }
-})
+		return {
+			rightDrawerOpen,
+			navigateToAdmin,
+			navigateToCatalogo,
+			toggleRightDrawer() {
+				rightDrawerOpen.value = !rightDrawerOpen.value;
+			},
+		};
+	},
+});
 </script>
+
+<style>
+.toolbar-left {
+	display: flex;
+	align-items: center;
+}
+
+.toolbar-right {
+	margin-left: auto;
+}
+</style>

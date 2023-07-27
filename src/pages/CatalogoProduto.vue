@@ -1,8 +1,10 @@
 <template>
-	<div>
-		<h5 id="catalogo"> - Catálogo - </h5>
-		<div class="product-list">
-			<product-card v-for="produto in produtos" :key="produto.id" :produto="produto" />
+	<div class="catalogo">
+    <h4 class="titulo"><strong>Catálogo</strong></h4>
+    	<div class="q-gutter-md">
+			<div class="q-col" v-for="produto in produtos" :key="produto.id">
+				<product-card :produto="produto" />
+			</div>
 		</div>
 	</div>
 </template>
@@ -25,29 +27,31 @@ export default defineComponent({
 		Produto.listarProdutos().then(resposta => {
 			console.log(resposta.content);
 			this.produtos = resposta.content;
-		}).catch(error => {
-			console.log(error)
-		});;
+		})
+			.catch(error => {
+				console.error('Erro ao listar os produtos:', error);
+			});;
 	},
 });
 </script>
-
 <style scoped>
-.product-list {
-	width: 100%;
+.titulo {
+	text-align: center;
+}
+
+.q-col {
+	margin: 20px 0;
+	box-sizing: border-box;
+}
+
+.q-gutter-md {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-around;
+	margin: -10px;
 }
 
-.product-card {
-	flex-basis: calc(33.33% - 20px);
-	margin: 20px;
-	box-shadow: 0 7px 12px rgba(19, 61, 247, 0.1);
-	transition: box-shadow 1s ease-in-out;
-}
-
-.product-card:hover {
-	box-shadow: 0 16px 25px rgba(9, 60, 199, 0.1);
+.q-gutter-md .q-col {
+	padding: 10px;
+	box-sizing: border-box;
 }
 </style>
