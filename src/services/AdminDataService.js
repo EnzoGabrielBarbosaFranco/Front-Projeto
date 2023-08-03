@@ -13,7 +13,7 @@ export default {
       const resposta = await http.get("admins");
       return resposta.data;
     } catch (error) {
-      console.error("Erro ao listar admins:", error);
+      console.error("Erro ao listar colaboradores:", error);
       throw error;
     }
   },
@@ -23,7 +23,7 @@ export default {
       const resposta = await http.get("admins/inativos");
       return resposta.data;
     } catch (error) {
-      console.error("Erro ao listar admins:", error);
+      console.error("Erro ao listar colaboradores:", error);
       throw error;
     }
   },
@@ -32,9 +32,9 @@ export default {
     try {
       const resposta = await http.post("admins", admin);
       console.log(resposta);
-      return alert("Admin Cadastrado com Sucesso !");
+      return alert("Colaborador cadastrado com Sucesso !");
     } catch (error) {
-      console.error("Erro ao salvar o admin:", error);
+      console.error("Erro ao salvar o colaborador:", error);
       throw error;
     }
   },
@@ -43,9 +43,9 @@ export default {
     try {
       const resposta = await http.put("admins", admin);
       console.log(resposta);
-      return alert("Admin atualizado com sucesso!");
+      return alert("Colaborador atualizado com sucesso!");
     } catch (error) {
-      console.log("Erro ao editar o admin:", error);
+      console.log("Erro ao editar o colaborador:", error);
     }
   },
 
@@ -54,25 +54,25 @@ export default {
       const resposta = await http.get(`admins/${id}`);
       return resposta.data;
     } catch (error) {
-      console.error("Erro ao obter o admin:", error);
+      console.error("Erro ao obter o colaborador:", error);
       throw error;
     }
   },
   excluirAdmin: async (id) => {
     try {
       await http.delete(`admins/${id}`);
-      return alert("Produto excluido com sucesso!");
+      return alert("Colaborador excluido com sucesso!");
     } catch (error) {
-      console.error("Erro ao excluir o admin:", error);
+      console.error("Erro ao excluir o colaborador:", error);
       throw error;
     }
   },
   reativarAdmin: async (id) => {
     try {
       await http.delete(`admins/reativar/${id}`);
-      return alert("Produto reativado com sucesso!");
+      return alert("Colaborador reativado com sucesso!");
     } catch (error) {
-      console.error("Erro ao Reativar o admin:", error);
+      console.error("Erro ao Reativar o colaborador:", error);
       throw error;
     }
   },

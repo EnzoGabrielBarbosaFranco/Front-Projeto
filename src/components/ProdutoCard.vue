@@ -3,7 +3,7 @@
 		<q-img :src="produto.imagem" class="product-card__image">
 			<div class="absolute-bottom text-h6">{{ produto.nome }}</div>
 		</q-img>
-		<q-rating v-model="stars" :max="5" size="34px" />
+		<q-rating v-model="stars" :max="5" size="34px" class="estrelas"/>
 		<q-card-section class="product-card__info">
 			<div class="q-pt-none product-card__description">Descrição: {{ produto.descricao }}</div>
 			<div class="text-subtitle2 product-card__color">Cor: {{ produto.cor }}</div>
@@ -62,6 +62,10 @@ export default defineComponent({
 	object-fit: fill;
 }
 
+.estrelas{
+  margin-top: 12px;
+  margin-left: 9px;
+}
 .product-card__info {
 	display: flex;
 	flex-direction: column;
@@ -84,14 +88,12 @@ export default defineComponent({
 .product-card__price {
 	font-size: 18px;
 	font-weight: bold;
+  margin-top: -7px;
+	margin-left: -10px; /* Ajuste este valor para mover o preço mais para a esquerda */
 }
 
 .button {
 	display: flex;
 	align-items: center;
-}
-
-.button button {
-	margin-left: 8px;
 }
 </style>

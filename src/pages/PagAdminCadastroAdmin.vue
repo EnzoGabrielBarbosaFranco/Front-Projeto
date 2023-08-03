@@ -1,6 +1,6 @@
 <template>
 	<q-form @submit="cadastrarAdmin" class="form-base">
-		<h5 class="title">Cadastro de Admin:</h5>
+		<h1 class="title">Cadastro de Colaboradores:</h1>
 		<div class="admin-form">
 			<div class="admin-input">
 				<label for="nome">Nome:</label>
@@ -43,10 +43,9 @@ export default defineComponent({
 				};
 
 				await AdminService.salvarAdmin(admin);
-				alert('Admin Salvo com Sucesso!');
 			} catch (error) {
 				alert('Erro: ' + error);
-				console.error('Erro ao cadastrar o admin:', error);
+				console.error('Erro ao cadastrar o colaborador:', error);
 			}
 		};
 
@@ -68,7 +67,7 @@ export default defineComponent({
 .title {
 	margin-top: 50px;
 	text-align: center;
-	font-size: 35px;
+	font-size: 30px;
 	margin-bottom: 40px;
 	font-weight: bold;
 

@@ -32,7 +32,7 @@
       <q-option v-for="categoria in categorias" :key="categoria.value" :label="categoria.label"
         :value="categoria.value"></q-option>
     </q-select>
-    <q-btn class="submit-btn" type="submit" label="Atualizar"></q-btn>
+    <q-btn size="16px" color="primary" class="submit-btn" type="submit" label="Atualizar"></q-btn>
   </q-form>
 </template>
 

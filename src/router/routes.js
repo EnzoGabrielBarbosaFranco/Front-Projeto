@@ -17,6 +17,46 @@ const routes = [
     ],
   },
   {
+    path: "/colaborador",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [
+      {
+        path: "",
+        component: () => import("pages/PagColaboradorHome.vue"),
+      },
+    ],
+  },
+  {
+    path: "/acessorios",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [
+      {
+        path: "",
+        component: () => import("pages/AcessoriosComponente.vue"),
+      },
+    ],
+  },
+  {
+    path: "/calcados",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [
+      {
+        path: "",
+        component: () => import("pages/CalcadosComponente.vue"),
+      },
+    ],
+  },
+  {
+    path: "/roupas",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [
+      {
+        path: "",
+        component: () => import("pages/RoupasComponente.vue"),
+      },
+    ],
+  },
+  {
     path: "/admin/CadastroProduto",
     component: () => import("layouts/MainLayout.vue"),
     children: [

@@ -18,6 +18,9 @@
 				<div class="btnLink">
 					<q-btn flat color="primary" label="Catálogo" @click="navigateToCatalogo" />
 				</div>
+        <div class="btnLink">
+          <q-btn flat color="primary" label="Colaborador" @click="navigateToColaborador" />
+        </div>
 				<div class="btnLink">
 					<q-btn flat color="primary" label="Admin" @click="navigateToAdmin" />
 				</div>
@@ -47,11 +50,15 @@ export default defineComponent({
 		const navigateToCatalogo = () => {
 			router.push("/");
 		};
+		const navigateToColaborador = () => {
+			router.push("/colaborador");
+		};
 
 		return {
 			rightDrawerOpen,
 			navigateToAdmin,
-			navigateToCatalogo,
+      navigateToCatalogo,
+      navigateToColaborador,
 			toggleRightDrawer() {
 				rightDrawerOpen.value = !rightDrawerOpen.value;
 			},

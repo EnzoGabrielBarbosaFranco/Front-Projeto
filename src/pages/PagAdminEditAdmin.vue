@@ -1,6 +1,6 @@
 <template>
 	<q-form class="admin-form" @submit="editarAdmin">
-		<h5 class="titulo">Editar Admin:</h5>
+		<h5 class="titulo">Editar Colaborador:</h5>
 		<div>
 			<label for="nome">Nome:</label>
 			<q-input class="form-input" v-model="nomeRef" outlined required></q-input>
@@ -15,7 +15,7 @@
 
 			<q-input class="form-input" v-model="senhaRef" outlined type="password" required></q-input>
 		</div>
-		<q-btn class="submit-btn" color="primary" type="submit" label="Salvar"></q-btn>
+		<q-btn size="16px" class="submit-btn" color="primary" type="submit" label="Atualizar"></q-btn>
 	</q-form>
 </template>
 
@@ -47,10 +47,10 @@ export default defineComponent({
 
 				await AdminService.editarAdmin(id, admin);
 				await carregarAdmin();
-				alert("Admin atualizado com sucesso!");
+				alert("Colaborador atualizado com sucesso!");
 			} catch (error) {
 				alert("Erro: " + error);
-				console.error("Erro ao editar o admin:", error);
+				console.error("Erro ao editar o colaborador:", error);
 			}
 		};
 
@@ -62,7 +62,7 @@ export default defineComponent({
 				loginRef.value = admin.login;
 				senhaRef.value = admin.senha;
 			} catch (error) {
-				console.error("Erro ao carregar o admin:", error);
+				console.error("Erro ao carregar o colaborador:", error);
 			}
 		};
 

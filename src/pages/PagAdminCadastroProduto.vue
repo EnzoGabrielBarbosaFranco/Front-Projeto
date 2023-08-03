@@ -31,10 +31,12 @@
     <div class="product-form">
       <q-file v-model="imagemRef" outlined label="Imagem" accept="image/*" @input="tratadorImagem"></q-file>
     </div>
-    <q-btn size="22px" class="glossy q-px-xl q-py-xs" color="primary" type="submit" :disable="isLoading">
-      <q-spinner v-if="isLoading" />
-      <span v-else>Cadastrar</span>
-    </q-btn>
+    <div class="button-container">
+      <q-btn size="16px" class="glossy q-px-xl q-py-xs" color="primary" type="submit" :disable="isLoading">
+        <q-spinner v-if="isLoading" />
+        <span v-else>Cadastrar</span>
+      </q-btn>
+    </div>
   </q-form>
 </template>
 
@@ -144,6 +146,11 @@ export default defineComponent({
 
 .product-form {
   margin-bottom: 7px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
 }
 
 label {

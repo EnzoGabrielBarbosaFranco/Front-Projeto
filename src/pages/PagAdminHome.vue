@@ -1,15 +1,15 @@
 <template>
 	<div class="container">
 		<h1 class="titulo">Administração</h1>
-		<div class="q-justify-center">
+		<div class="q-justify-center cadastros">
 			<router-link to="admin/CadastroProduto" class="nav-link active">
 				<q-btn color="primary" label="Cadastro de Produtos"></q-btn>
 			</router-link>
 			<router-link to="admin/CadastroUser" class="nav-link active">
-				<q-btn color="primary" label="Cadastro de Admins"></q-btn>
+				<q-btn color="primary" label="Cadastro de Colaboradores"></q-btn>
 			</router-link>
 		</div>
-		<q-page-container>
+		<q-page-container class="conteiner-geral">
 			<q-list>
 				<h5 class="produtos-ativos-inativos">Produtos Ativos:</h5>
 				<div class="q-gutter-md q-mb-md" v-for="produto in produtos" :key="produto.id">
@@ -46,7 +46,7 @@
 			</div>
 			<br />
 			<q-list>
-				<h5 class="admins-ativos-inativos">Admins Ativos:</h5>
+				<h5 class="admins-ativos-inativos">Colaboradores Ativos:</h5>
 				<div class="q-gutter-md q-mb-md" v-for="admin in admins" :key="admin.id">
 					<div class="q-pa-md q-row">
 						<p class="text q-col"><strong>Nome:</strong> <span class="bold-text">{{ admin.nome }}</span></p>
@@ -62,7 +62,7 @@
 			<br />
 			<div v-if="adminsInativos.length > 0">
 				<q-list>
-					<h5 class="admins-ativos-inativos">Admins Inativos:</h5>
+					<h5 class="admins-ativos-inativos">Colaboradores Inativos:</h5>
 					<div class="q-gutter-md q-mb-md" v-for="admin in adminsInativos" :key="admin.id">
 						<div class="q-pa-md q-row">
 							<p class="text q-col"><strong>Nome:</strong> <span class="bold-text">{{ admin.nome }}</span></p>
@@ -119,7 +119,6 @@ export default defineComponent({
 		const excluirProduto = async (produtoId) => {
 			try {
 				await Produto.excluirProduto(produtoId);
-				alert("Produto excluído com sucesso!");
 				await carregarProdutos();
 				await carregarProdutosInativos();
 			} catch (error) {
@@ -130,7 +129,6 @@ export default defineComponent({
 		const reativarProduto = async (produtoId) => {
 			try {
 				await Produto.reativarProduto(produtoId);
-				alert("Produto reativado com sucesso!");
 				await carregarProdutos();
 				await carregarProdutosInativos();
 			} catch (error) {
@@ -163,7 +161,6 @@ export default defineComponent({
 		const excluirAdmin = async (adminId) => {
 			try {
 				await AdminService.excluirAdmin(adminId);
-				alert("Admin excluído com sucesso!");
 				await carregarAdmins();
 				await carregarAdminsInativos();
 			} catch (error) {
@@ -174,7 +171,6 @@ export default defineComponent({
 		const reativarAdmin = async (adminId) => {
 			try {
 				await AdminService.reativarAdmin(adminId);
-				alert("Admin reativado com sucesso!");
 				await carregarAdmins();
 				await carregarAdminsInativos();
 			} catch (error) {
@@ -211,14 +207,20 @@ export default defineComponent({
 	padding: 20px;
 }
 
+.conteiner-geral{
+  margin-top: -40px;
+}
+
 .admins-ativos-inativos {
 	font-weight: bold;
-	font-size: 25px;
+	font-size: 30px;
+	text-align: center;
 }
 
 .titulo {
 	font-size: 24px;
 	font-weight: bold;
+  margin-bottom: 25px;
 }
 
 .form-actions {
@@ -238,8 +240,14 @@ export default defineComponent({
 
 .produtos-ativos-inativos {
 	font-weight: bold;
-	font-size: 25px;
+	font-size: 30px;
+	text-align: center;
+}
 
+.produtos-ativos-inativos {
+	font-weight: bold;
+	font-size: 30px;
+	text-align: center;
 }
 
 .titulo {
