@@ -63,8 +63,8 @@ export default defineComponent({
 <style scoped>
 .titulo {
   text-align: center;
-  margin-bottom: 15px;
-  font-size: 45px;
+  margin-bottom: 25px;
+  font-size: 35px;
 }
 
 .q-col {

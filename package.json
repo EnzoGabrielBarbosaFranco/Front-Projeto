@@ -2,7 +2,7 @@
   "name": "sqg-f2",
   "version": "0.0.1",
   "description": "Front-end Projeto Integrador III",
-  "productName": "SGQ",
+  "productName": "SGE",
   "author": "",
   "private": true,
   "scripts": {
@@ -13,6 +13,9 @@
     "build": "quasar build"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/vue-fontawesome": "^3.0.3",
     "@quasar/extras": "^1.0.0",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.1",

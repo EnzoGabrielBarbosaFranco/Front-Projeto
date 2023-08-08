@@ -1,61 +1,80 @@
 <template>
-	<q-form @submit="cadastrarAdmin" class="form-base">
-		<h1 class="title">Cadastro de Colaboradores:</h1>
-		<div class="admin-form">
-			<div class="admin-input">
-				<label for="nome">Nome:</label>
-				<q-input outlined v-model="nomeRef" id="nome" required placeholder="Nome" class="input-narrow"></q-input>
-			</div>
-			<div class="admin-input">
-				<label for="login">Login:</label>
-				<q-input outlined v-model="loginRef" id="login" required placeholder="Login" class="input-narrow"></q-input>
-			</div>
-			<div class="admin-input">
-				<label for="senha">Senha:</label>
-				<q-input outlined v-model="senhaRef" id="senha" type="password" required placeholder="Senha"
-					class="input-narrow"></q-input>
-			</div>
-			<q-btn type="submit" class="glossy q-px-xl q-py-xs cadastrar" color="primary" label="Cadastrar"></q-btn>
-		</div>
-	</q-form>
+  <q-form @submit="cadastrarAdmin" class="form-base">
+    <h1 class="title">Cadastro de Colaboradores:</h1>
+    <div class="admin-form">
+      <div class="admin-input">
+        <label for="nome">Nome:</label>
+        <q-input outlined v-model="nomeRef" id="nome" required placeholder="Nome" class="input-narrow"></q-input>
+      </div>
+      <div class="admin-input">
+        <label for="login">Login:</label>
+        <q-input outlined v-model="loginRef" id="login" required placeholder="Login" class="input-narrow"></q-input>
+      </div>
+      <div class="admin-input">
+        <label for="senha">Senha:</label>
+        <div class="password-input">
+          <q-input outlined v-model="senhaRef" id="senha" :type="showPassword ? 'text' : 'password'" required
+            placeholder="Senha" class="input-narrow"></q-input>
+          <span class="show-password-icon" @click="togglePasswordVisibility">
+            <font-awesome-icon :icon="showPassword ? faEyeSlash : faEye" class="password-icon" />
+          </span>
+        </div>
+      </div>
+      <q-btn type="submit" class="glossy q-px-xl q-py-xs cadastrar" color="primary" label="Cadastrar"></q-btn>
+    </div>
+  </q-form>
 </template>
 
 <script>
 import { defineComponent, ref } from 'vue';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import AdminService from '../services/AdminDataService';
 
 export default defineComponent({
-	setup() {
-		const nomeRef = ref('');
-		const loginRef = ref('');
-		const senhaRef = ref('');
+  components: {
+    FontAwesomeIcon,
+  },
+  setup() {
+    const nomeRef = ref('');
+    const loginRef = ref('');
+    const senhaRef = ref('');
+    const showPassword = ref(false);
 
-		const cadastrarAdmin = async () => {
-			try {
-				const nome = nomeRef.value;
-				const login = loginRef.value;
-				const senha = senhaRef.value;
+    const cadastrarAdmin = async () => {
+      try {
+        const nome = nomeRef.value;
+        const login = loginRef.value;
+        const senha = senhaRef.value;
 
-				const admin = {
-					nome,
-					login,
-					senha,
-				};
+        const admin = {
+          nome,
+          login,
+          senha,
+        };
 
-				await AdminService.salvarAdmin(admin);
-			} catch (error) {
-				alert('Erro: ' + error);
-				console.error('Erro ao cadastrar o colaborador:', error);
-			}
-		};
+        await AdminService.salvarAdmin(admin);
+      } catch (error) {
+        alert('Erro: ' + error);
+        console.error('Erro ao cadastrar o colaborador:', error);
+      }
+    };
 
-		return {
-			cadastrarAdmin,
-			nomeRef,
-			loginRef,
-			senhaRef,
-		};
-	},
+    const togglePasswordVisibility = () => {
+      showPassword.value = !showPassword.value;
+    };
+
+    return {
+      cadastrarAdmin,
+      nomeRef,
+      loginRef,
+      senhaRef,
+      showPassword,
+      togglePasswordVisibility,
+      faEye,
+      faEyeSlash,
+    };
+  },
 });
 </script>
 
@@ -64,6 +83,23 @@ export default defineComponent({
 	padding: 20px;
 }
 
+.password-input {
+  position: relative;
+}
+
+.show-password-icon {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.password-icon {
+  font-size: 17px;
+  color: #666;
+}
 .title {
 	margin-top: 50px;
 	text-align: center;

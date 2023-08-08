@@ -144,8 +144,8 @@ module.exports = configure(function (ctx) {
       },
 
       manifest: {
-        name: `SGQ`,
-        short_name: `SGQ`,
+        name: `SGE`,
+        short_name: `SGE`,
         description: `Front-end Projeto Integrador III`,
         display: "standalone",
         orientation: "portrait",

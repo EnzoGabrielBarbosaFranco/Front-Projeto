@@ -51,7 +51,7 @@
 					<div class="q-pa-md q-row">
 						<p class="text q-col"><strong>Nome:</strong> <span class="bold-text">{{ admin.nome }}</span></p>
 						<p class="text q-col">Login: {{ admin.login }}</p>
-						<p class="text q-col">Senha: {{ admin.senha }}</p>
+						<!-- <p class="text q-col">Senha: {{ admin.senha }}</p> -->
 						<div class="q-gutter-md q-justify-end">
 							<q-btn color="primary" label="Editar" @click="editarAdmin(admin)"></q-btn>
 							<q-btn color="negative" label="Excluir" @click="excluirAdmin(admin.id)"></q-btn>
@@ -67,7 +67,7 @@
 						<div class="q-pa-md q-row">
 							<p class="text q-col"><strong>Nome:</strong> <span class="bold-text">{{ admin.nome }}</span></p>
 							<p class="text q-col">Login: {{ admin.login }}</p>
-							<p class="text q-col">Senha: {{ admin.senha }}</p>
+							<!-- <p class="text q-col">Senha: {{ admin.senha }}</p> -->
 							<div class="q-gutter-md q-justify-end">
 								<q-btn color="negative" label="Reativar" @click="reativarAdmin(admin.id)"></q-btn>
 							</div>

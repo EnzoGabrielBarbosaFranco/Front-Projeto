@@ -10,7 +10,11 @@
           </div>
           <div class="colaborador-input">
             <label for="senha" style="font-size: 15px;">Senha:</label>
-            <q-input outlined v-model="senhaRef" id="senha" type="password" required placeholder="Senha" class="input-narrow"></q-input>
+            <q-input outlined v-model="senhaRef" id="senha" type="password" required placeholder="Senha"
+              class="input-narrow"></q-input>
+          </div>
+          <div class="colaborador-input">
+            <a href="#" for="esqueciSenha" style="font-size: 15px;">Esqueci minha senha</a>
           </div>
           <q-btn type="submit" class="glossy q-px-xl q-py-xs cadastrar" color="primary" label="Entrar"></q-btn>
         </div>
@@ -44,9 +48,12 @@ export default defineComponent({
 }
 
 .quadrado {
-  max-width: 400px; /* Largura máxima do quadrado */
-  margin: 0 auto; /* Centralizar o quadrado horizontalmente */
-  padding: 10px; /* Espaçamento interno do quadrado */
+  max-width: 400px;
+  /* Largura máxima do quadrado */
+  margin: 0 auto;
+  /* Centralizar o quadrado horizontalmente */
+  padding: 10px;
+  /* Espaçamento interno do quadrado */
 }
 
 .colaborador-form {
@@ -72,5 +79,4 @@ label {
 q-btn.cadastrar {
   width: 120px;
   margin-top: 20px;
-}
-</style>
+}</style>

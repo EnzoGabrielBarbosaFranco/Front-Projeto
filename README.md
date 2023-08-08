@@ -1,4 +1,4 @@
-# SGQ (sqg-f2)
+# SGE (sqg-f2)
 
 Front-end Projeto Integrador III
 

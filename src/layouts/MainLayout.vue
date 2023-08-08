@@ -2,10 +2,8 @@
 	<q-layout view="lHh Lpr lFf-reverse">
 		<q-header elevated>
 			<q-toolbar class="bg-primary glossy text-white">
-				<q-avatar>
-					<img src="../assets/qr-code.png" />
-				</q-avatar>
-				<q-toolbar-title> SGQ </q-toolbar-title>
+					<img class="logo" @click="navigateToCatalogo" src="../assets/qr-code.png" />
+				<q-toolbar-title class="nomeEmpresa" @click="navigateToCatalogo"> SGE </q-toolbar-title>
 				<q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleRightDrawer" />
 			</q-toolbar>
 		</q-header>
@@ -75,5 +73,17 @@ export default defineComponent({
 
 .toolbar-right {
 	margin-left: auto;
+}
+
+.logo {
+  width: 69px; /* Defina o tamanho desejado para o logotipo */
+  height: auto;
+  margin-bottom: 6px;
+  margin-right: 25px;
+}
+
+.nomeEmpresa{
+  margin-left: 90px;
+  font-size: 30px;
 }
 </style>
