@@ -27,6 +27,7 @@
 
 <script>
 import { defineComponent, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import AdminService from '../services/AdminDataService';
@@ -36,6 +37,7 @@ export default defineComponent({
     FontAwesomeIcon,
   },
   setup() {
+    const router = useRouter(); // Inicializar instância do router
     const nomeRef = ref('');
     const loginRef = ref('');
     const senhaRef = ref('');
@@ -54,6 +56,9 @@ export default defineComponent({
         };
 
         await AdminService.salvarAdmin(admin);
+
+        // Redirecionar para /admin após o cadastro bem-sucedido
+        router.push('/admin');
       } catch (error) {
         alert('Erro: ' + error);
         console.error('Erro ao cadastrar o colaborador:', error);
@@ -78,9 +83,10 @@ export default defineComponent({
 });
 </script>
 
+
 <style scoped>
 .form-base {
-	padding: 20px;
+  padding: 20px;
 }
 
 .password-input {
@@ -100,37 +106,38 @@ export default defineComponent({
   font-size: 17px;
   color: #666;
 }
+
 .title {
-	margin-top: 50px;
-	text-align: center;
-	font-size: 30px;
-	margin-bottom: 40px;
-	font-weight: bold;
+  margin-top: 50px;
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 40px;
+  font-weight: bold;
 
 }
 
 .admin-form {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .admin-input {
-	margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .input-narrow {
-	width: 300px;
+  width: 300px;
 }
 
 label {
-	display: block;
-	margin-bottom: 5px;
-	font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
 q-btn.cadastrar {
-	width: 120px;
-	margin-top: 20px;
+  width: 120px;
+  margin-top: 20px;
 }
 </style>

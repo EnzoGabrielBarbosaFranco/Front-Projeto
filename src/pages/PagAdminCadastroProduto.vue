@@ -75,7 +75,7 @@ export default defineComponent({
         isLoading.value = true;
         console.log(produto);
         await dataService.salvarProduto(produto);
-        router.push({ name: 'adminCadastroProduto' });
+        router.push('/admin');
         isLoading.value = false;
       } catch (error) {
         isLoading.value = false;
