@@ -19,6 +19,24 @@
             <font-awesome-icon :icon="showPassword ? faEyeSlash : faEye" class="password-icon" />
           </span>
         </div>
+        <div class="senha-feedback">
+          <div class="senha-criterio" :class="{'criterio-aceito': isTamanhoMinimo}">
+            <font-awesome-icon :icon="isTamanhoMinimo ? faCheck : faTimes" />
+            Deve conter pelo menos 6 caracteres.
+          </div>
+          <div class="senha-criterio" :class="{'criterio-aceito': isCaractereEspecial}">
+            <font-awesome-icon :icon="isCaractereEspecial ? faCheck : faTimes" />
+            Deve conter pelo menos 1 caractere especial.
+          </div>
+          <div class="senha-criterio" :class="{'criterio-aceito': isLetraMaiuscula}">
+            <font-awesome-icon :icon="isLetraMaiuscula ? faCheck : faTimes" />
+            Deve conter pelo menos 1 letra maiúscula.
+          </div>
+          <div class="senha-criterio" :class="{'criterio-aceito': isNumero}">
+            <font-awesome-icon :icon="isNumero ? faCheck : faTimes" />
+            Deve conter pelo menos 1 número.
+          </div>
+        </div>
       </div>
       <q-btn type="submit" class="glossy q-px-xl q-py-xs cadastrar" color="primary" label="Cadastrar"></q-btn>
     </div>
@@ -26,10 +44,10 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faEyeSlash, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import AdminService from '../services/AdminDataService';
 
 export default defineComponent({
@@ -48,6 +66,17 @@ export default defineComponent({
         const nome = nomeRef.value;
         const login = loginRef.value;
         const senha = senhaRef.value;
+
+         // Verificar se os campos nome e login não estão vazios
+         if (nome.trim() === '' || login.trim() === '') {
+          alert('Por favor, preencha todos os campos obrigatórios.');
+          return;
+        }
+
+        if (!isSenhaSegura(senha)) {
+          alert('A senha não atende aos critérios de segurança');
+          return;
+        }
 
         const admin = {
           nome,
@@ -69,6 +98,17 @@ export default defineComponent({
       showPassword.value = !showPassword.value;
     };
 
+    const isSenhaSegura = (senha) => {
+      // Verificar se a senha atende aos critérios: pelo menos 6 caracteres, 1 especial, 1 maiúscula, 1 número
+      return senha.length >= 6 && /[!@#$%^&*()\-_=+\\|{}\[\];:'",<.>/?]/.test(senha)
+        && /[A-Z]/.test(senha) && /[0-9]/.test(senha);
+    };
+
+    const isTamanhoMinimo = computed(() => senhaRef.value.length >= 6);
+    const isCaractereEspecial = computed(() => /[!@#$%^&*()\-_=+\\|{}\[\];:'",<.>/?]/.test(senhaRef.value));
+    const isLetraMaiuscula = computed(() => /[A-Z]/.test(senhaRef.value));
+    const isNumero = computed(() => /[0-9]/.test(senhaRef.value));
+
     return {
       cadastrarAdmin,
       nomeRef,
@@ -78,6 +118,12 @@ export default defineComponent({
       togglePasswordVisibility,
       faEye,
       faEyeSlash,
+      faCheck,
+      faTimes,
+      isTamanhoMinimo,
+      isCaractereEspecial,
+      isLetraMaiuscula,
+      isNumero,
     };
   },
 });
@@ -124,6 +170,27 @@ export default defineComponent({
 
 .admin-input {
   margin-bottom: 10px;
+}
+
+.senha-feedback {
+  margin-top: 10px;
+}
+
+.senha-criterio {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+
+}
+
+.criterio-aceito {
+  color: green;
+  margin-left: 5px;
+}
+
+.criterio-aceito svg {
+  width: 14px;
+  height: 14px;
 }
 
 .input-narrow {
