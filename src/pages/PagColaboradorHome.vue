@@ -1,35 +1,93 @@
 <template>
   <q-page class="q-pa-md">
     <h1 class="titulo">Login de Colaborador:</h1>
-    <q-card class="quadrado" style="background-color: #e1e3e6;">
-      <q-form @submit="logarColaborador" class="form-base">
+    <q-card class="quadrado" style="background-color: #c5c5c7;">
+      <q-form @submit.prevent="logarColaborador" class="form-base">
         <div class="colaborador-form">
           <div class="colaborador-input">
             <label for="login" style="font-size: 15px;">Login:</label>
-            <q-input outlined v-model="loginRef" id="login" required placeholder="Login" class="input-narrow"></q-input>
+            <q-input v-model="loginRef" filled id="login" maxlength="50" pattern="[a-zA-Z0-9]+" required placeholder="Login" class="input-narrow"></q-input>
           </div>
           <div class="colaborador-input">
             <label for="senha" style="font-size: 15px;">Senha:</label>
-            <q-input outlined v-model="senhaRef" id="senha" type="password" required placeholder="Senha"
-              class="input-narrow"></q-input>
-          </div>
-          <div class="colaborador-input">
-            <a href="#" for="esqueciSenha" style="font-size: 15px;">Esqueci minha senha</a>
+            <div class="password-input">
+              <q-input v-model="senhaRef" filled id="senha" :type="showPassword ? 'text' : 'password'" maxlength="50" required placeholder="Senha" class="input-narrow"></q-input>
+              <span class="show-password-icon" @click="togglePasswordVisibility">
+                <font-awesome-icon :icon="showPassword ? faEyeSlash : faEye" class="password-icon" />
+              </span>
+            </div>
           </div>
           <q-btn type="submit" class="glossy q-px-xl q-py-xs cadastrar" color="primary" label="Entrar"></q-btn>
         </div>
       </q-form>
     </q-card>
+
+    <!-- Renderizar o reCAPTCHA aqui -->
+    <div class="captcha-container" id="captcha-container"></div>
   </q-page>
 </template>
 
 <script>
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, ref } from "vue";
+import LoginService from '../services/LoginDataService';
 import { useRouter } from "vue-router";
+import HtmlUtil from '../utils/HtmlUtil'; // Importe a função HtmlUtil.escape
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 export default defineComponent({
+  components: {
+    FontAwesomeIcon,
+  },
   setup() {
+    const loginRef = ref("");
+    const senhaRef = ref("");
+    const router = useRouter();
+    const showPassword = ref(false);
 
+    const logarColaborador = async () => {
+      try {
+        const login = HtmlUtil.escape(loginRef.value); // Escapar valor do login
+        const senha = HtmlUtil.escape(senhaRef.value); // Escapar valor da senha
+
+        // Simulando uma autenticação fictícia no frontend
+        if (loginRef.value && senhaRef.value) {
+          const usuario = {
+            login,
+            senha,
+          };
+
+          await LoginService.logarColaborador(usuario);
+
+          router.push("/admin"); // Redirecionar para o painel após o login bem-sucedido
+        } else {
+          console.error("Credenciais inválidas");
+        }
+      } catch (error) {
+        console.error("Erro:", error);
+      }
+    };
+
+    const togglePasswordVisibility = () => {
+      showPassword.value = !showPassword.value;
+    };
+
+    // Quando o reCAPTCHA estiver pronto, renderize-o
+    grecaptcha.ready(function(){
+      grecaptcha.render("captcha-container", {
+        sitekey: "6Lfbg6cnAAAAACQJrhuRO5MHF7FNYy5qrAdqUr5T"
+      });
+    });
+
+    return {
+      loginRef,
+      senhaRef,
+      logarColaborador,
+      showPassword,
+      togglePasswordVisibility,
+      faEye,
+      faEyeSlash,
+    };
   },
 });
 </script>
@@ -37,6 +95,24 @@ export default defineComponent({
 <style>
 .form-base {
   padding: 20px;
+}
+
+.password-input {
+  position: relative;
+}
+
+.show-password-icon {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.password-icon {
+  font-size: 17px;
+  color: #464545;
 }
 
 .titulo {
@@ -49,11 +125,8 @@ export default defineComponent({
 
 .quadrado {
   max-width: 400px;
-  /* Largura máxima do quadrado */
   margin: 0 auto;
-  /* Centralizar o quadrado horizontalmente */
   padding: 10px;
-  /* Espaçamento interno do quadrado */
 }
 
 .colaborador-form {
@@ -79,4 +152,13 @@ label {
 q-btn.cadastrar {
   width: 120px;
   margin-top: 20px;
-}</style>
+}
+
+/* Estilos para centralizar o reCAPTCHA */
+.captcha-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
+</style>

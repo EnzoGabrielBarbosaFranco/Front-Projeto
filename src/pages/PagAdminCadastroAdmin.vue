@@ -49,6 +49,7 @@ import { useRouter } from 'vue-router';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faEye, faEyeSlash, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import AdminService from '../services/AdminDataService';
+import HtmlUtil from '../utils/HtmlUtil'; // Importe a função HtmlUtil.escape
 
 export default defineComponent({
   components: {
@@ -63,9 +64,9 @@ export default defineComponent({
 
     const cadastrarAdmin = async () => {
       try {
-        const nome = nomeRef.value;
-        const login = loginRef.value;
-        const senha = senhaRef.value;
+        const nome = HtmlUtil.escape(nomeRef.value); // Escapar valor do nome
+        const login = HtmlUtil.escape(loginRef.value); // Escapar valor do login
+        const senha = HtmlUtil.escape(senhaRef.value); // Escapar valor da senha
 
          // Verificar se os campos nome e login não estão vazios
          if (nome.trim() === '' || login.trim() === '') {
