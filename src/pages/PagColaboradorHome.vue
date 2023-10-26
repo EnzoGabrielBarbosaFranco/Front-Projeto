@@ -16,6 +16,9 @@
                 <font-awesome-icon :icon="showPassword ? faEyeSlash : faEye" class="password-icon" />
               </span>
             </div>
+          <div v-if="senhaIncorreta">
+            <span>{{mensagemSenhaInvalida}}</span>
+          </div>
           </div>
           <q-btn type="submit" class="glossy q-px-xl q-py-xs cadastrar" color="primary" label="Entrar"></q-btn>
         </div>
@@ -42,8 +45,10 @@ export default defineComponent({
   setup() {
     const loginRef = ref("");
     const senhaRef = ref("");
+    const senhaIncorreta = ref(false);
     const router = useRouter();
     const showPassword = ref(false);
+    const mensagemSenhaInvalida = ref("");
 
     const logarColaborador = async () => {
       try {
@@ -52,6 +57,7 @@ export default defineComponent({
 
         // Simulando uma autenticação fictícia no frontend
         if (loginRef.value && senhaRef.value) {
+          senhaIncorreta.value = false;
           const usuario = {
             login,
             senha,
@@ -64,7 +70,9 @@ export default defineComponent({
           console.error("Credenciais inválidas");
         }
       } catch (error) {
-        console.error("Erro:", error);
+        console.error("Erro:", error.response.data);
+        senhaIncorreta.value = true;
+        mensagemSenhaInvalida.value = error.response.data;
       }
     };
 
@@ -87,6 +95,8 @@ export default defineComponent({
       togglePasswordVisibility,
       faEye,
       faEyeSlash,
+      senhaIncorreta,
+      mensagemSenhaInvalida,
     };
   },
 });
