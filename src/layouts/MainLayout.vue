@@ -83,7 +83,8 @@ export default defineComponent({
 }
 
 .nomeEmpresa{
-  margin-left: 90px;
+  margin-right: 35px;
+  text-align: center;
   font-size: 30px;
 }
 </style>
