@@ -7,6 +7,13 @@ const routes = [
     ],
   },
   {
+    path: "/acessoNegado",
+    component: () => import("pages/ErrorAcessoNegado.vue"),
+    children: [
+      { path: "", component: () => import("pages/PagAdminHome.vue") },
+    ],
+  },
+  {
     path: "/admin",
     component: () => import("layouts/MainLayout.vue"),
     children: [

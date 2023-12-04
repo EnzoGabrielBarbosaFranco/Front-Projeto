@@ -51,30 +51,28 @@ export default defineComponent({
     const mensagemSenhaInvalida = ref("");
 
     const logarColaborador = async () => {
-      try {
-        const login = HtmlUtil.escape(loginRef.value); // Escapar valor do login
-        const senha = HtmlUtil.escape(senhaRef.value); // Escapar valor da senha
+  try {
+    const login = HtmlUtil.escape(loginRef.value);
+    const senha = HtmlUtil.escape(senhaRef.value);
 
-        // Simulando uma autenticação fictícia no frontend
-        if (loginRef.value && senhaRef.value) {
-          senhaIncorreta.value = false;
-          const usuario = {
-            login,
-            senha,
-          };
-
-          await LoginService.logarColaborador(usuario);
-
-          router.push("/admin"); // Redirecionar para o painel após o login bem-sucedido
-        } else {
-          console.error("Credenciais inválidas");
-        }
-      } catch (error) {
-        console.error("Erro:", error.response.data);
-        senhaIncorreta.value = true;
-        mensagemSenhaInvalida.value = error.response.data;
-      }
-    };
+    if (loginRef.value && senhaRef.value) {
+      senhaIncorreta.value = false;
+      const usuario = {
+        login,
+        senha,
+      };
+      await LoginService.logarColaborador(usuario);
+      router.push("/admin"); 
+    } else {
+      console.error("Credenciais inválidas");
+    }
+  } catch (error) {
+    console.error("Erro:", error.response.data);
+    senhaIncorreta.value = true;
+    mensagemSenhaInvalida.value = error.response.data;
+    router.push('/colaborador');
+  }
+};
 
     const togglePasswordVisibility = () => {
       showPassword.value = !showPassword.value;

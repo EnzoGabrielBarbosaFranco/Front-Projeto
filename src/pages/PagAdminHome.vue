@@ -77,6 +77,9 @@
 			</div>
 			<br />
 		</q-page-container>
+		<!-- <div v-else>
+            <p>Você não tem permissão para acessar esta página.</p>
+        </div> -->
 	</div>
 </template>
 
@@ -85,6 +88,12 @@ import { defineComponent, ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import Produto from "../services/ProdutoDataService";
 import AdminService from "../services/AdminDataService.js";
+import { useCookies } from 'vue3-cookies';
+const { cookies } = useCookies();
+import router from "src/router"; 0
+import { jwtDecode } from "jwt-decode";
+
+
 
 export default defineComponent({
 	setup() {
@@ -100,6 +109,36 @@ export default defineComponent({
 				produtos.value = resposta.content;
 			} catch (error) {
 				console.error("Erro ao carregar produtos:", error);
+			}
+		};
+		const verificarAdminLogado = () => {
+			// Obtenha o token armazenado nos cookies
+			const token = cookies.get('token');
+
+			// Verifique se o token está presente
+			if (!token) {
+				return false; // Admin não está logado
+			}
+
+			try {
+				// Divida o token em partes
+				const parts = token.split('.');
+
+				// Verifique se o token tem três partes
+				if (parts.length !== 3) {
+					console.error('Token inválido - número incorreto de partes.');
+					return false;
+				}
+
+				// Decodifique o token para obter informações sobre a expiração
+				const decodedToken = jwtDecode(token);
+
+				// Verifique se o token expirou
+				const agora = Date.now() / 1000; // em segundos
+				return decodedToken.exp >= agora;
+			} catch (error) {
+				console.error('Erro ao decodificar o token:', error);
+				return false; // Admin não está logado (ou erro ao decodificar o token)
 			}
 		};
 
@@ -140,6 +179,8 @@ export default defineComponent({
 			try {
 				const resposta = await AdminService.listarAdmins();
 				admins.value = resposta.content;
+				//comparar se o usuário logado está na lista dos admins
+
 			} catch (error) {
 				console.error("Erro ao carregar admins:", error);
 			}
@@ -178,14 +219,33 @@ export default defineComponent({
 			}
 		};
 
+		const verificarAcessoAdmin = async () => {
+			try {
+				const adminLogin = cookies.get('adminLogin');
+				console.log(`URL: admins/verificarAdmin/${adminLogin}`);
+				const isAdmin = await AdminService.verificarAdmin(adminLogin);
+
+				if (!isAdmin) {
+					router.push('/acessoNegado');
+				}
+			} catch (error) {
+				console.error("Erro ao verificar o admin:", error);
+			}
+		}
+
 		onMounted(async () => {
+			await verificarAdminLogado();
+			await verificarAcessoAdmin();
 			await carregarProdutos();
 			await carregarProdutosInativos();
 			await carregarAdmins();
 			await carregarAdminsInativos();
 		});
 
+
 		return {
+			verificarAcessoAdmin,
+			verificarAdminLogado,
 			produtos,
 			produtosInativos,
 			admins,
@@ -207,8 +267,8 @@ export default defineComponent({
 	padding: 20px;
 }
 
-.conteiner-geral{
-  margin-top: -40px;
+.conteiner-geral {
+	margin-top: -40px;
 }
 
 .admins-ativos-inativos {
@@ -220,7 +280,7 @@ export default defineComponent({
 .titulo {
 	font-size: 24px;
 	font-weight: bold;
-  margin-bottom: 25px;
+	margin-bottom: 25px;
 }
 
 .form-actions {

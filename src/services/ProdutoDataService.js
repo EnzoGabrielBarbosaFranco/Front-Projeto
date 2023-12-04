@@ -11,7 +11,9 @@ const http = axios.create({
 export default {
   listarProdutos: async () => {
     try {
-      const resposta = await http.get("produtos");
+      const resposta = await http.get("produtos", {
+        withCredentials: true,
+      });
       return resposta.data;
     } catch (error) {
       console.error("Erro ao listar produtos:", error);
@@ -21,7 +23,9 @@ export default {
 
   listarProdutosInativos: async () => {
     try {
-      const respostaInativos = await http.get("produtos/inativos");
+      const respostaInativos = await http.get("produtos/inativos", {
+        withCredentials: true,
+      });
       return respostaInativos.data;
     } catch (error) {
       console.error("Erro ao listar produtos inativos:", error);
@@ -31,7 +35,9 @@ export default {
 
   obterProduto: async (id) => {
     try {
-      const resposta = await http.get(`produtos/${id}`);
+      const resposta = await http.get(`produtos/${id}`, {
+        withCredentials: true,
+      });
       return resposta.data;
     } catch (error) {
       console.error("Erro ao obter o produto:", error);
@@ -41,7 +47,9 @@ export default {
 
   editarProduto: async (id, produto) => {
     try {
-      const resposta = await http.put(`produtos`, produto);
+      const resposta = await http.put(`produtos`, produto, {
+        withCredentials: true,
+      });
       console.log(resposta);
       return alert("Produto atualizado com sucesso!");
     } catch (error) {
@@ -52,7 +60,9 @@ export default {
 
   excluirProduto: async (id) => {
     try {
-      await http.delete(`produtos/${id}`);
+      await http.delete(`produtos/${id}`, {
+        withCredentials: true,
+      });
     } catch (error) {
       console.error("Erro ao excluir o produto:", error);
       throw error;
@@ -61,7 +71,9 @@ export default {
 
   salvarProduto: async (produto) => {
     try {
-      const resposta = await http.post("produtos", produto);
+      const resposta = await http.post("produtos", produto, {
+        withCredentials: true,
+      });
       console.log(resposta);
       return alert("Produto cadastrado com sucesso!");
     } catch (error) {
@@ -71,7 +83,9 @@ export default {
 
   reativarProduto: async (id) => {
     try {
-      await http.delete(`produtos/reativar/${id}`);
+      await http.delete(`produtos/reativar/${id}`, {
+        withCredentials: true,
+      });
       return alert("Produto reativado com sucesso!");
     } catch (error) {
       console.error("Erro ao reativar o produto:", error);

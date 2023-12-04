@@ -38,6 +38,7 @@
 
 <script>
 import { defineComponent } from 'vue';
+import { useRouter } from "vue-router";
 import produtoDataService from '../services/ProdutoDataService';
 
 export default defineComponent({

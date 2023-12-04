@@ -48,6 +48,7 @@ export default defineComponent({
 				await AdminService.editarAdmin(id, admin);
 				await carregarAdmin();
 				alert("Colaborador atualizado com sucesso!");
+				router.push('/');
 			} catch (error) {
 				alert("Erro: " + error);
 				console.error("Erro ao editar o colaborador:", error);
